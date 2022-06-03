@@ -8,12 +8,9 @@ export type NavbarType = {
 const Navbar = ({ setShowModal }: NavbarType) => {
   return (
     <div className="h-[160px] md:h-[120px] w-full flex md:flex-row flex-col items-center justify-between py-4 px-1 bg-slate-800">
-      <div
-        className="flex items-center justify-center pl-10"
-        // onClick={() => navigate("/")}
-      >
+      <div className="flex items-center justify-center pl-10">
         <div className="cursor-pointer flex items-center justify-between">
-          <img src={BrandIcon} className="w-[40px] mt-2 mr-3" alt="brand" />
+          <img src={BrandIcon} className="w-[35px] mt-2 mr-3" alt="brand" />
           <h1 className="text-3xl text-white">6DegSeperation</h1>
         </div>
       </div>

@@ -30,7 +30,6 @@ const Connection = () => {
       } else {
         friends.forEach((person) => {
           let path = `${frd1}->${person}`;
-          console.log({ path });
           results = [...handleCheckConnection(person, frd2, path)];
           setConnections((prevState) => [...prevState, ...results]);
         });
@@ -38,8 +37,6 @@ const Connection = () => {
     }
     return results;
   };
-
-  console.log(connections);
 
   useEffect(() => {
     const removeDuplicates = (arr: Array<string>) => {
@@ -60,8 +57,6 @@ const Connection = () => {
   useEffect(() => {
     setConnections([]);
   }, [friend1, friend2]);
-
-  console.log(connections);
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -93,7 +88,11 @@ const Connection = () => {
               Select Friend 1
             </option>
             {options.map(({ value, label }) => {
-              return <option value={value}>{label}</option>;
+              return (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              );
             })}
           </select>
 
@@ -107,7 +106,11 @@ const Connection = () => {
               Select Friend 2
             </option>
             {options.map(({ value, label }) => {
-              return <option value={value}>{label}</option>;
+              return (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              );
             })}
           </select>
         </div>
@@ -121,16 +124,19 @@ const Connection = () => {
       </div>
       {connections && Array.isArray(connections) && connections.length > 0 && (
         <div
-          className="flex flex-col items-center justify-around w-[85%] h-[320px] md:w-[500px] shadow-md rounded-md
-    border-2 border-gray-200 p-4"
+          className="flex flex-col items-center justify-around w-[85%] md:w-[500px] shadow-md rounded-md
+    border-2 border-gray-200 p-4 mt-4"
         >
           <p className="my-2 text-md text-slate-700">
-            Seperation between ${friend1} and ${friend2}:
+            Seperation between {friend1} and {friend2}:
           </p>
-          {connections.map((connection) => {
+          {connections.map((connection, idx) => {
             return (
-              <p className="font-extrabold text-xl my-2 text-slate-900">
-                {connection}
+              <p
+                className="font-bold italic text-lg my-2 text-slate-700"
+                key={idx}
+              >
+                Scenario-{idx + 1}: {connection}
               </p>
             );
           })}
