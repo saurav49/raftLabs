@@ -18,12 +18,16 @@ const Connection = () => {
   ) => {
     let results: Array<string> = [];
 
+    // check if friend1 is present in user database
     if (allUsers.hasOwnProperty(frd1)) {
+      // for friend1 get all his respective friendList
       let friends = allUsers[frd1 as keyof typeof allUsers] as Array<string>;
+      // if friendList length is 1 and it contains friend2, form path set state and return
       if (friends.length === 1 && friends.includes(frd2)) {
         results.push(`${path}->${frd2}`);
         setConnections((prevState) => [...prevState, ...results]);
         return results;
+        // if friendList length is and it doesnot contain friend2 then traverse through the solitary element to find whether it contains friend2 or ot
       } else if (friends.length === 1 && !friends.includes(frd2)) {
         let pathContd = `${path}->${friends[0]}`;
         results = [
@@ -32,6 +36,8 @@ const Connection = () => {
         ];
         return results;
       } else {
+        // if friend2 is present in friendList, form path and filter out the friend2 and
+        // traverse through other friend from friendList to see whether you get to friend2 or not
         if (friends.includes(frd2)) {
           results.push(`${path}->${frd2}`);
           setConnections((prevState) => [...prevState, ...results]);
@@ -42,6 +48,7 @@ const Connection = () => {
             return;
           }
           let newPath = `${path}->${person}`;
+          // for a new path and call function again with friend2 and friend1 as one the friend while traversing through the list
           results = [
             ...results,
             ...handleCheckConnection(person, frd2, newPath),
@@ -53,6 +60,7 @@ const Connection = () => {
     return results;
   };
 
+  // remove duplicates
   useEffect(() => {
     const removeDuplicates = (arr: Array<string>) => {
       let obj: DuplicateObjTracker = {};
@@ -68,6 +76,7 @@ const Connection = () => {
     setConnections((prevState) => removeDuplicates(prevState));
   }, [connections.length]);
 
+  // if the user changes anty of the input values reset the connections then
   useEffect(() => {
     setConnections([]);
   }, [friend1, friend2]);
