@@ -81,8 +81,6 @@ const Connection = () => {
     setConnections([]);
   }, [friend1, friend2]);
 
-  console.log(allUsers);
-
   return (
     <div className="flex flex-col items-center w-full">
       <div
