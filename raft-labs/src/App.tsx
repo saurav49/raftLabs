@@ -1,9 +1,15 @@
+import { useState } from "react";
 import "./App.css";
+import { Navbar, Modal, Connection } from "./components/index";
 
 function App() {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <Navbar setShowModal={setShowModal} />
+      {showModal && <Modal setShowModal={setShowModal} />}
+      <Connection />
     </div>
   );
 }
