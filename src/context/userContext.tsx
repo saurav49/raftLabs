@@ -28,6 +28,7 @@ export const UserProvider = ({ children }: ChildrenType) => {
     Aayushi: ["Bhaskar"],
     "Kamalnath Sharma": ["Shanti Kumar Saha"],
     "Shanti Kumar Saha": ["Bhaskar"],
+    Bhaskar: [],
   });
   const [options, setOptions] = useState<Array<ObjectType>>([
     {

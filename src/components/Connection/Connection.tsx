@@ -11,11 +11,15 @@ const Connection = () => {
   const { allUsers, options } = useUser();
   const [connections, setConnections] = useState<Array<string>>([]);
 
-  const handleCheckConnection = (frd1: string, frd2: string, path = frd1) => {
+  const handleCheckConnection = (
+    frd1: string,
+    frd2: string,
+    path: string = frd1
+  ) => {
     let results: Array<string> = [];
 
     if (allUsers.hasOwnProperty(frd1)) {
-      const friends = allUsers[frd1 as keyof typeof allUsers] as Array<string>;
+      let friends = allUsers[frd1 as keyof typeof allUsers] as Array<string>;
       if (friends.length === 1 && friends.includes(frd2)) {
         results.push(`${path}->${frd2}`);
         setConnections((prevState) => [...prevState, ...results]);
@@ -28,9 +32,20 @@ const Connection = () => {
         ];
         return results;
       } else {
+        if (friends.includes(frd2)) {
+          results.push(`${path}->${frd2}`);
+          setConnections((prevState) => [...prevState, ...results]);
+          friends = friends.filter((frd) => frd !== frd2);
+        }
         friends.forEach((person) => {
-          let path = `${frd1}->${person}`;
-          results = [...handleCheckConnection(person, frd2, path)];
+          if (path.split("->").includes(person)) {
+            return;
+          }
+          let newPath = `${path}->${person}`;
+          results = [
+            ...results,
+            ...handleCheckConnection(person, frd2, newPath),
+          ];
           setConnections((prevState) => [...prevState, ...results]);
         });
       }
@@ -50,13 +65,14 @@ const Connection = () => {
       }
       return res;
     };
-
     setConnections((prevState) => removeDuplicates(prevState));
   }, [connections.length]);
 
   useEffect(() => {
     setConnections([]);
   }, [friend1, friend2]);
+
+  console.log(allUsers);
 
   return (
     <div className="flex flex-col items-center w-full">

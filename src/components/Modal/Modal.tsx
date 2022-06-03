@@ -21,6 +21,16 @@ const Modal = ({ setShowModal }: ModalType) => {
       return;
     }
 
+    if (inputTextFriend1 && friend1) {
+      alert(
+        "you cannot create user and set relation of another user at the same time, please select one at a time"
+      );
+      setInputTextFriend1("");
+      setfriend1("");
+      setfriend2("");
+      return;
+    }
+
     if (allUsers[inputTextFriend1 as keyof typeof allUsers]) {
       alert(
         "User already present, select from the dropdown if you want to form a new relation"
