@@ -64,41 +64,78 @@ const Connection = () => {
   console.log(connections);
 
   return (
-    <div>
-      <select
-        name="friend1"
-        value={friend1}
-        onChange={(e) => setfriend1(e.target.value)}
-        className="border border-1 border-gray-300 rounded-md p-2 mb-2 md:mb-0"
+    <div className="flex flex-col items-center w-full">
+      <div
+        className="flex flex-col items-center justify-around w-[85%] h-[320px] md:w-[500px] shadow-md rounded-md
+    border-2 border-gray-200
+    "
       >
-        <option value="" disabled>
-          Select Friend 1
-        </option>
-        {options.map(({ value, label }) => {
-          return <option value={value}>{label}</option>;
-        })}
-      </select>
+        <p className="text-md text-slate-700 mt-3">
+          It is said that all people on average are
+          <a
+            className="italic mx-1 font-medium decoration-solid underline-offset-1"
+            href="https://en.wikipedia.org/wiki/Six_degrees_of_separation"
+          >
+            six, or fewer, social connections away from each other.
+          </a>
+        </p>
+        <p className="text-lg text-slate-700 font-bold">
+          Check below to find out
+        </p>
+        <div className="w-[90%] flex flex-wrap items-center justify-around">
+          <select
+            name="friend1"
+            value={friend1}
+            onChange={(e) => setfriend1(e.target.value)}
+            className="border border-1 border-gray-300 rounded-md p-2 my-2 mr-2 sm:my-0 sm:mr-0"
+          >
+            <option value="" disabled>
+              Select Friend 1
+            </option>
+            {options.map(({ value, label }) => {
+              return <option value={value}>{label}</option>;
+            })}
+          </select>
 
-      <select
-        name="friend2"
-        value={friend2}
-        onChange={(e) => setfriend2(e.target.value)}
-        className="border border-1 border-gray-300 rounded-md p-2 mb-2 md:mb-0"
-      >
-        <option value="" disabled>
-          Select Friend 2
-        </option>
-        {options.map(({ value, label }) => {
-          return <option value={value}>{label}</option>;
-        })}
-      </select>
+          <select
+            name="friend2"
+            value={friend2}
+            onChange={(e) => setfriend2(e.target.value)}
+            className="border border-1 border-gray-300 rounded-md p-2"
+          >
+            <option value="" disabled>
+              Select Friend 2
+            </option>
+            {options.map(({ value, label }) => {
+              return <option value={value}>{label}</option>;
+            })}
+          </select>
+        </div>
 
-      <button
-        onClick={() => handleCheckConnection(friend1, friend2)}
-        className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-5 border-b-4 active:border-b-0 mb-5 border-emerald-700 hover:border-emerald-500 rounded uppercase mr-5"
-      >
-        check
-      </button>
+        <button
+          onClick={() => handleCheckConnection(friend1, friend2)}
+          className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-5 border-b-4 active:border-b-0 mb-5 border-emerald-700 hover:border-emerald-500 rounded uppercase mr-5"
+        >
+          check
+        </button>
+      </div>
+      {connections && Array.isArray(connections) && connections.length > 0 && (
+        <div
+          className="flex flex-col items-center justify-around w-[85%] h-[320px] md:w-[500px] shadow-md rounded-md
+    border-2 border-gray-200 p-4"
+        >
+          <p className="my-2 text-md text-slate-700">
+            Seperation between ${friend1} and ${friend2}:
+          </p>
+          {connections.map((connection) => {
+            return (
+              <p className="font-extrabold text-xl my-2 text-slate-900">
+                {connection}
+              </p>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

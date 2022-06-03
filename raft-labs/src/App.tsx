@@ -9,7 +9,9 @@ function App() {
     <div className="App">
       <Navbar setShowModal={setShowModal} />
       {showModal && <Modal setShowModal={setShowModal} />}
-      <Connection />
+      <div className="w-full h-[80vh] flex items-center justify-center">
+        <Connection />
+      </div>
     </div>
   );
 }
