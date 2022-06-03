@@ -62,7 +62,7 @@ const Connection = () => {
     <div className="flex flex-col items-center w-full">
       <div
         className="flex flex-col items-center justify-around w-[85%] h-[320px] md:w-[500px] shadow-md rounded-md
-    border-2 border-gray-200
+    border-2 border-gray-200 px-2
     "
       >
         <p className="text-md text-slate-700 mt-3">
